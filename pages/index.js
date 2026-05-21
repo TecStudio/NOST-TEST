@@ -244,77 +244,105 @@ export default function Home() {
               )}
 
               {step === 'confirm' && studentData && (
-                <>
-                  <h2 style={{ fontSize: '16px', fontWeight: '600', marginBottom: '6px' }}>
-                    Confirm Your Information
-                  </h2>
-                  <p style={{ fontSize: '13px', color: 'var(--text-secondary)', marginBottom: '24px' }}>
-                    Please verify that the following information is correct before proceeding.
+                <div style={{ textAlign: 'center' }}>
+                  <div style={{
+                    fontSize: '28px',
+                    fontWeight: '700',
+                    color: 'var(--accent)',
+                    marginBottom: '6px',
+                    letterSpacing: '-0.02em'
+                  }}>
+                    Is This You?
+                  </div>
+                  <p style={{ fontSize: '13px', color: 'var(--text-secondary)', marginBottom: '28px' }}>
+                    Please verify your information before beginning the examination.
                   </p>
 
+                  {/* Identity card */}
                   <div style={{
-                    background: 'var(--accent-light)',
-                    border: '1px solid var(--accent)',
-                    padding: '20px',
-                    marginBottom: '24px'
+                    background: 'var(--bg)',
+                    border: '2px solid var(--accent)',
+                    padding: '24px 28px',
+                    marginBottom: '24px',
+                    textAlign: 'left'
                   }}>
-                    <div style={{ display: 'grid', gap: '10px' }}>
-                      {[
-                        ['Student Code', studentData.student_code],
-                        ['First Name', studentData.first_name],
-                        ['Last Name', 'Garcia'],
-                        ['Grade Level', '6th Grade'],
-                        ['School', 'Placeholder Middle School'],
-                        ['Exam', 'NOST MATH TEST — FORM A'],
-                        ['Date', 'May 25, 2026'],
-                        ['Time Limit', `${studentData.time_limit_minutes} minutes`],
-                        ['Weight', '60% of final year grade'],
-                      ].map(([label, value]) => (
-                        <div key={label} style={{ display: 'flex', gap: '16px', alignItems: 'baseline' }}>
-                          <span style={{
-                            fontSize: '11px',
-                            fontFamily: 'var(--mono)',
-                            color: 'var(--text-muted)',
-                            textTransform: 'uppercase',
-                            letterSpacing: '0.08em',
-                            minWidth: '120px'
-                          }}>{label}</span>
-                          <span style={{ fontSize: '14px', fontWeight: '600', color: 'var(--accent)' }}>{value}</span>
-                        </div>
-                      ))}
-                    </div>
+                    {[
+                      ['Student Legal Name', `Garcia, ${studentData.first_name}`],
+                      ['State Student ID', studentData.student_code],
+                      ['School Name', 'Hollywood Hills Elementary Florida School'],
+                      ['Grade Level', 'Grade 05'],
+                      ['Date of Birth', 'May ?? (11-17), 2015'],
+                    ].map(([label, value]) => (
+                      <div key={label} style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        padding: '10px 0',
+                        borderBottom: '1px solid var(--border)'
+                      }}>
+                        <span style={{
+                          fontSize: '10px',
+                          fontFamily: 'var(--mono)',
+                          color: 'var(--text-muted)',
+                          textTransform: 'uppercase',
+                          letterSpacing: '0.12em',
+                          marginBottom: '3px'
+                        }}>{label}</span>
+                        <span style={{
+                          fontSize: '17px',
+                          fontWeight: '600',
+                          color: 'var(--text)',
+                          letterSpacing: '-0.01em'
+                        }}>{value}</span>
+                      </div>
+                    ))}
                   </div>
 
-                  <div style={{
-                    background: 'var(--warning-light)',
-                    border: '1px solid #d4a017',
-                    padding: '12px 14px',
+                  <p style={{
                     fontSize: '12px',
-                    color: 'var(--warning)',
-                    marginBottom: '24px',
+                    color: 'var(--text-muted)',
+                    marginBottom: '20px',
                     fontFamily: 'var(--mono)'
                   }}>
-                    ⚠ This examination will enter fullscreen mode. Exiting fullscreen will terminate your session.
-                  </div>
+                    If this information is incorrect, click <strong>No</strong> and notify your tutor immediately.
+                  </p>
 
                   <div style={{ display: 'flex', gap: '12px' }}>
                     <button
-                      className="btn-secondary"
                       onClick={() => setStep('login')}
-                      style={{ flex: 1 }}
+                      style={{
+                        flex: 1,
+                        padding: '14px',
+                        background: '#c0392b',
+                        color: 'white',
+                        border: 'none',
+                        fontSize: '16px',
+                        fontWeight: '700',
+                        cursor: 'pointer',
+                        letterSpacing: '0.05em'
+                      }}
                     >
-                      Back
+                      No
                     </button>
                     <button
-                      className="btn-primary"
                       onClick={handleConfirm}
                       disabled={loading}
-                      style={{ flex: 2 }}
+                      style={{
+                        flex: 2,
+                        padding: '14px',
+                        background: '#1a7a3a',
+                        color: 'white',
+                        border: 'none',
+                        fontSize: '16px',
+                        fontWeight: '700',
+                        cursor: loading ? 'not-allowed' : 'pointer',
+                        letterSpacing: '0.05em',
+                        opacity: loading ? 0.7 : 1
+                      }}
                     >
-                      {loading ? 'Processing...' : 'This information is correct →'}
+                      {loading ? 'Processing...' : 'Yes'}
                     </button>
                   </div>
-                </>
+                </div>
               )}
 
               {step === 'waiting' && (
